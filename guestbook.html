@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FISH WORLD 2000 - Guestbook</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="win98-titlebar">
+      <span class="win98-icon">[GB]</span>
+      <span class="win98-title">Guestbook - Microsoft Internet Explorer</span>
+      <div class="win98-buttons">
+        <span class="win98-btn">_</span>
+        <span class="win98-btn">[]</span>
+        <span class="win98-btn">X</span>
+      </div>
+    </div>
+
+    <div class="rainbow-bar"></div>
+
+    <header class="header">
+      <pre class="ascii-art small">  _________________________
+ |  G U E S T B O O K  |
+ |_________________________|
+ | NAME: ________________ |
+ | EMAIL: _______________ |
+ | MSG:  ________________ |
+ |_________________________|</pre>
+      <h1>~*~ GUESTBOOK ~*~</h1>
+      <p>Sign my guestbook if u love fish!!!</p>
+      <p class="subtitle">Powered by Bravenet (not really)</p>
+    </header>
+
+    <div class="marquee-bar">
+      <marquee behavior="scroll" direction="left" scrollamount="4">
+        * THANKS 4 SIGNING MY GUESTBOOK * NO SPAM (ONLY FISH) * YOUR MESSAGE WILL APPEAR AFTER I APPROVE IT WITH MY DAD'S CREDIT CARD *
+      </marquee>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="nav-box">
+          <h2>Navigation</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Fish Gallery</a></li>
+            <li><a href="guestbook.html">Guestbook</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="panel">
+          <h2>Sign The Guestbook</h2>
+          <form class="guestbook-form" onsubmit="alert('Thanks!!! Your fish message has been sent to the ocean server.'); return false;">
+            <label for="name">Your Name:</label>
+            <input id="name" name="name" type="text" placeholder="FishFan2000">
+
+            <label for="email">Your Email:</label>
+            <input id="email" name="email" type="text" placeholder="you@aol.com">
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" placeholder="I love fish because..."></textarea>
+
+            <div class="button-row">
+              <button class="retro-button" type="submit">Submit Message</button>
+              <a class="retro-button" href="index.html">Cancel</a>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2>Recent Entries</h2>
+
+          <pre class="ascii-divider">========== GUESTBOOK LOG FILE ==========</pre>
+
+          <div class="guest-entry">
+            <pre class="ascii-art small" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-15 14:22:01] USER=CoolFishDude42</pre>
+            <strong>CoolFishDude42</strong> wrote on 06/15/2000:<br>
+            this site rocks!!! fish are the best animals after dinosaurs
+          </div>
+          <div class="guest-entry">
+            <pre class="ascii-art small cyan" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-18 09:01:44] USER=AquaGirl</pre>
+            <strong>AquaGirl</strong> wrote on 06/18/2000:<br>
+            i have 3 goldfish named Larry Larry and Other Larry
+          </div>
+          <div class="guest-entry">
+            <pre class="ascii-art small gold" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-22 22:09:13] USER=WebMaster Rick</pre>
+            <strong>WebMaster Rick</strong> wrote on 06/22/2000:<br>
+            nice page. consider joining my webring.
+          </div>
+
+          <pre class="ascii-art small"> END OF FILE - NO MORE ENTRIES AFTER THIS LINE
+============================================</pre>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <p>Guestbook powered by imagination and guestbook energy.</p>
+    </footer>
+  </div>
+
+  <div class="dialup-status">
+    <span class="online">[*] Online</span>
+    <span>Connected at 56.6 kbps</span>
+    <span class="modem">Posting to guestbook.cgi...</span>
+  </div>
+</body>
+</html>
