@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FISH WORLD 2000 - Fish Gallery</title>
+  <meta name="description" content="ASCII fish gallery - the coolest fish pics on the web">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="gallery">
   <div class="wrapper">
     <div class="win98-titlebar">
       <span class="win98-icon">  /\
@@ -29,7 +30,7 @@
    '---'</pre>
       <h1>~*~ FISH GALLERY ~*~</h1>
       <p>Look at these awesome fish pics (ASCII edition)</p>
-      <p class="subtitle">Images loading from 3.5" floppy disk...</p>
+      <p class="subtitle">Click a fish to zoom in · Images loading from 3.5" floppy disk...</p>
     </header>
 
     <div class="marquee-bar">
@@ -40,13 +41,27 @@
 
     <div class="layout">
       <aside class="sidebar">
+        <pre class="ascii-sidebar"> (\(\(
+ ( -.-)
+ o_(")(")
+  FISH!</pre>
+
         <div class="nav-box">
           <h2>Navigation</h2>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="gallery.html">Fish Gallery</a></li>
-            <li><a href="guestbook.html">Guestbook</a></li>
+            <li><a href="index.html" data-nav="home">Home</a></li>
+            <li><a href="gallery.html" data-nav="gallery">Fish Gallery</a></li>
+            <li><a href="guestbook.html" data-nav="guestbook">Guestbook</a></li>
+            <li><a href="links.html" data-nav="links">Cool Links</a></li>
+            <li><a href="about.html" data-nav="about">About Me</a></li>
+            <li><a href="quiz.html" data-nav="quiz">Fish Quiz</a></li>
           </ul>
+        </div>
+
+        <div class="counter-box">
+          <h2>Gallery Views</h2>
+          <div class="counter-digits" data-visitor-digits>LOADING..</div>
+          <p class="counter-label" data-visitor-label>Connecting to hit counter server...</p>
         </div>
       </aside>
 
@@ -58,7 +73,8 @@
           <pre class="ascii-divider">+-------+-------+-------+-------+-------+-------+</pre>
 
           <div class="gallery-grid">
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">TROPICAL</span>
               <pre class="ascii-art small ascii-thumb">  /\
  /  \
 |    |
@@ -67,14 +83,16 @@ TROPICAL</pre>
               <strong>Tropical Fish</strong>
               <p>Very colorful. Very fast.</p>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">DEEP SEA</span>
               <pre class="ascii-art small cyan ascii-thumb"> &gt;&lt;(((('&gt;
   ~~~~
  BLUE</pre>
               <strong>Blue Fish</strong>
               <p>Likes coral and chill vibes.</p>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">DANGER</span>
               <pre class="ascii-art small gold ascii-thumb">   .--.
   (    )
    '--'
@@ -82,7 +100,8 @@ TROPICAL</pre>
               <strong>Blowfish</strong>
               <p>Inflates when surprised (same).</p>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">WEIRD</span>
               <pre class="ascii-art small ascii-thumb">  .---.
  /  o  \
 (   ^   )
@@ -91,7 +110,8 @@ FROGGY</pre>
               <strong>Frogfish</strong>
               <p>Weird. Wonderful. Winner.</p>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">BONUS</span>
               <pre class="ascii-art small ascii-thumb">  (\(\(
   ( -.-)
   c(")(")
@@ -99,7 +119,8 @@ FROGGY</pre>
               <strong>Shrimp Buddy</strong>
               <p>Not a fish but hangs with fish.</p>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">DECOR</span>
               <pre class="ascii-art small cyan ascii-thumb">   ___
   /   \
  |  @  |
@@ -108,6 +129,60 @@ FROGGY</pre>
               <strong>Spiral Shell</strong>
               <p>Home decor of the sea.</p>
             </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">LEGEND</span>
+              <pre class="ascii-art small gold ascii-thumb">  .---.
+ /|\ /|\
+  | O |
+  \___/
+ SHARK</pre>
+              <strong>Shark</strong>
+              <p>Always the main character.</p>
+            </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">CUTE</span>
+              <pre class="ascii-art small cyan ascii-thumb">  (\(\(
+  ( ^.^)
+  (")(")
+ CLOWN</pre>
+              <strong>Clownfish</strong>
+              <p>Orange. Friendly. Movie famous.</p>
+            </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">MYTH</span>
+              <pre class="ascii-art small ascii-thumb">   .--.
+  ( oo )
+   '--'
+ KOI</pre>
+              <strong>Koi Fish</strong>
+              <p>Pond royalty. Very fancy.</p>
+            </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">MEME</span>
+              <pre class="ascii-art small gold ascii-thumb">  .----.
+ ( blob )
+  '----'
+ BLOB</pre>
+              <strong>Blobfish</strong>
+              <p>Internet hall of fame fish.</p>
+            </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">TINY</span>
+              <pre class="ascii-art small cyan ascii-thumb">  &gt;=&gt;
+ NEON
+ TETRA</pre>
+              <strong>Neon Tetra</strong>
+              <p>Glows like a fish rave.</p>
+            </div>
+            <div class="gallery-item" data-gallery-item>
+              <span class="gallery-tag">CLASSIC</span>
+              <pre class="ascii-art small ascii-thumb">  .---.
+ ( o o )
+  '---'
+ GOLDFISH</pre>
+              <strong>Goldfish</strong>
+              <p>Classic bowl fish. Icon.</p>
+            </div>
           </div>
 
           <p style="margin-top: 14px;">
@@ -115,6 +190,7 @@ FROGGY</pre>
           </p>
 
           <div class="button-row">
+            <a class="retro-button" href="quiz.html">Take Fish Quiz</a>
             <a class="retro-button" href="index.html">&lt; Back Home</a>
           </div>
         </section>
@@ -129,8 +205,11 @@ FROGGY</pre>
   <div class="dialup-status">
     <span class="online">[*] Online</span>
     <span>Connected at 56.6 kbps</span>
-    <span class="modem">Downloading fish.gif...</span>
+    <span data-modem-status>Downloading fish.gif...</span>
+    <span data-message-count>Messages: 0</span>
   </div>
+
+  <script src="retro.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

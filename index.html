@@ -7,7 +7,7 @@
   <meta name="description" content="The #1 fish website on the entire internet (probably)">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
   <div class="wrapper">
     <div class="win98-titlebar">
       <span class="win98-icon">&gt;&lt;(((('&gt;</span>
@@ -53,22 +53,25 @@
         <div class="nav-box">
           <h2>Navigation</h2>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="gallery.html">Fish Gallery</a></li>
-            <li><a href="guestbook.html">Guestbook</a></li>
+            <li><a href="index.html" data-nav="home">Home</a></li>
+            <li><a href="gallery.html" data-nav="gallery">Fish Gallery</a></li>
+            <li><a href="guestbook.html" data-nav="guestbook">Guestbook</a></li>
+            <li><a href="links.html" data-nav="links">Cool Links</a></li>
+            <li><a href="about.html" data-nav="about">About Me</a></li>
+            <li><a href="quiz.html" data-nav="quiz">Fish Quiz</a></li>
             <li><a href="#facts">Cool Fish Facts</a></li>
           </ul>
         </div>
 
         <div class="counter-box">
           <h2>Visitor Counter</h2>
-          <div class="counter-digits">000847293</div>
-          <p class="counter-label">You are visitor #847,293!!!</p>
+          <div class="counter-digits" data-visitor-digits>LOADING..</div>
+          <p class="counter-label" data-visitor-label>Connecting to hit counter server...</p>
         </div>
 
         <div class="clock-box">
           <h2>Server Time</h2>
-          <p id="retro-clock" style="text-align:center; font-family:'Courier New',monospace; font-size:14px; margin:0;">LOADING...</p>
+          <p id="retro-clock" data-retro-clock style="text-align:center; font-family:'Courier New',monospace; font-size:14px; margin:0;">LOADING...</p>
         </div>
 
         <div class="webring-box">
@@ -112,6 +115,8 @@
             <span class="fish one">&gt;&lt;(((('></span>
             <span class="fish two">&gt;=::=&gt;</span>
             <span class="fish three">&lt;')))))&lt;</span>
+            <span class="fish four">&gt;=====&gt;</span>
+            <span class="bubble"></span>
             <span class="bubble"></span>
             <span class="bubble"></span>
             <span class="bubble"></span>
@@ -123,9 +128,45 @@
           <div class="button-row">
             <a class="retro-button" href="gallery.html">View Fish Gallery</a>
             <a class="retro-button" href="guestbook.html">Sign Guestbook</a>
+            <a class="retro-button" href="quiz.html">Take Fish Quiz</a>
             <a class="retro-button" href="mailto:fish@fishworld2000.com?subject=I%20love%20fish">Email Me!!!</a>
           </div>
         </section>
+
+        <section class="panel">
+          <h2>Fish Of The Day</h2>
+          <pre class="ascii-art small cyan">   TODAY'S FEATURED FISH
+   =====================
+        &gt;&lt;(((('&gt;</pre>
+          <p><strong id="fish-of-day-name">Loading...</strong></p>
+          <p id="fish-of-day-fact">Checking the ocean database...</p>
+          <p>Cool rating: <span id="fish-of-day-rating">*****</span></p>
+        </section>
+
+        <section class="panel">
+          <h2>Fish Poll</h2>
+          <p>What's your favorite fish??? Vote now!!!</p>
+          <form id="fish-poll" class="poll-form">
+            <label><input type="radio" name="favorite-fish" value="Goldfish"> Goldfish</label>
+            <label><input type="radio" name="favorite-fish" value="Shark"> Shark</label>
+            <label><input type="radio" name="favorite-fish" value="Clownfish"> Clownfish</label>
+            <label><input type="radio" name="favorite-fish" value="Blobfish"> Blobfish</label>
+            <label><input type="radio" name="favorite-fish" value="Other"> Other</label>
+            <div class="button-row">
+              <button class="retro-button" type="submit">Cast Vote</button>
+            </div>
+          </form>
+          <div id="poll-results" class="poll-results" hidden></div>
+        </section>
+
+        <section class="panel">
+          <h2>Site Updates</h2>
+          <ul class="timeline">
+            <li><strong>NEW:</strong> Fish Quiz added!!! Test your brain.</li>
+            <li><strong>NEW:</strong> Cool Links page with real fish sites.</li>
+            <li><strong>NEW:</strong> Guestbook now saves your messages locally.</li>
+            <li><strong>NEW:</strong> Real global visitor counter (not fake!!!).</li>
+          </ul>
 
         <pre class="ascii-divider">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</pre>
 
@@ -172,6 +213,16 @@
                 <td>Blobfish</td>
                 <td>Looks different out of water but still a legend.</td>
                 <td>****o</td>
+              </tr>
+              <tr>
+                <td>Great White Shark</td>
+                <td>Has been in movies. Very famous fish energy.</td>
+                <td>*****</td>
+              </tr>
+              <tr>
+                <td>Seahorse</td>
+                <td>Dad seahorses carry the babies. Icon behavior.</td>
+                <td>*****</td>
               </tr>
             </tbody>
           </table>
@@ -223,8 +274,8 @@
   <div class="dialup-status">
     <span class="online">[*] Online</span>
     <span>Connected at 56.6 kbps</span>
-    <span class="modem">Modem squeal detected...</span>
-    <span>Messages: 0</span>
+    <span data-modem-status>Modem squeal detected...</span>
+    <span data-message-count>Messages: 0</span>
   </div>
 
   <script src="retro.js"></script>

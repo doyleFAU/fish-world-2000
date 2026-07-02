@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FISH WORLD 2000 - Guestbook</title>
+  <meta name="description" content="Sign the Fish World 2000 guestbook">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="guestbook">
   <div class="wrapper">
     <div class="win98-titlebar">
       <span class="win98-icon">[GB]</span>
@@ -30,7 +31,7 @@
  |_________________________|</pre>
       <h1>~*~ GUESTBOOK ~*~</h1>
       <p>Sign my guestbook if u love fish!!!</p>
-      <p class="subtitle">Powered by Bravenet (not really)</p>
+      <p class="subtitle">Powered by Bravenet (not really) · Messages saved in your browser</p>
     </header>
 
     <div class="marquee-bar">
@@ -41,20 +42,33 @@
 
     <div class="layout">
       <aside class="sidebar">
+        <pre class="ascii-sidebar"> (\(\(
+ ( -.-)
+ o_(")(")
+  FISH!</pre>
+
         <div class="nav-box">
           <h2>Navigation</h2>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="gallery.html">Fish Gallery</a></li>
-            <li><a href="guestbook.html">Guestbook</a></li>
+            <li><a href="index.html" data-nav="home">Home</a></li>
+            <li><a href="gallery.html" data-nav="gallery">Fish Gallery</a></li>
+            <li><a href="guestbook.html" data-nav="guestbook">Guestbook</a></li>
+            <li><a href="links.html" data-nav="links">Cool Links</a></li>
+            <li><a href="about.html" data-nav="about">About Me</a></li>
+            <li><a href="quiz.html" data-nav="quiz">Fish Quiz</a></li>
           </ul>
+        </div>
+
+        <div class="clock-box">
+          <h2>Server Time</h2>
+          <p data-retro-clock style="text-align:center; font-family:'Courier New',monospace; font-size:14px; margin:0;">LOADING...</p>
         </div>
       </aside>
 
       <main class="content">
         <section class="panel">
           <h2>Sign The Guestbook</h2>
-          <form class="guestbook-form" onsubmit="alert('Thanks!!! Your fish message has been sent to the ocean server.'); return false;">
+          <form id="guestbook-form" class="guestbook-form">
             <label for="name">Your Name:</label>
             <input id="name" name="name" type="text" placeholder="FishFan2000">
 
@@ -76,21 +90,7 @@
 
           <pre class="ascii-divider">========== GUESTBOOK LOG FILE ==========</pre>
 
-          <div class="guest-entry">
-            <pre class="ascii-art small" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-15 14:22:01] USER=CoolFishDude42</pre>
-            <strong>CoolFishDude42</strong> wrote on 06/15/2000:<br>
-            this site rocks!!! fish are the best animals after dinosaurs
-          </div>
-          <div class="guest-entry">
-            <pre class="ascii-art small cyan" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-18 09:01:44] USER=AquaGirl</pre>
-            <strong>AquaGirl</strong> wrote on 06/18/2000:<br>
-            i have 3 goldfish named Larry Larry and Other Larry
-          </div>
-          <div class="guest-entry">
-            <pre class="ascii-art small gold" style="border:none;padding:0;margin:0 0 6px;background:transparent;text-align:left;">[2000-06-22 22:09:13] USER=WebMaster Rick</pre>
-            <strong>WebMaster Rick</strong> wrote on 06/22/2000:<br>
-            nice page. consider joining my webring.
-          </div>
+          <div id="guestbook-entries"></div>
 
           <pre class="ascii-art small"> END OF FILE - NO MORE ENTRIES AFTER THIS LINE
 ============================================</pre>
@@ -106,8 +106,11 @@
   <div class="dialup-status">
     <span class="online">[*] Online</span>
     <span>Connected at 56.6 kbps</span>
-    <span class="modem">Posting to guestbook.cgi...</span>
+    <span data-modem-status>Posting to guestbook.cgi...</span>
+    <span data-message-count>Messages: 0</span>
   </div>
+
+  <script src="retro.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

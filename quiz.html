@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FISH WORLD 2000 - Fish Quiz</title>
+  <meta name="description" content="Test your fish knowledge">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="quiz">
+  <div class="wrapper">
+    <div class="win98-titlebar">
+      <span class="win98-icon">[?]</span>
+      <span class="win98-title">Fish Quiz - Microsoft Internet Explorer</span>
+      <div class="win98-buttons">
+        <span class="win98-btn">_</span>
+        <span class="win98-btn">[]</span>
+        <span class="win98-btn">X</span>
+      </div>
+    </div>
+
+    <div class="rainbow-bar"></div>
+
+    <header class="header">
+      <pre class="ascii-art small">  QUIZ TIME
+  =========
+   ??? ???</pre>
+      <h1>~*~ FISH QUIZ ~*~</h1>
+      <p>Are U a fish expert??? Take the quiz!!!</p>
+      <p class="subtitle">No cheating. Fish are watching.</p>
+    </header>
+
+    <div class="marquee-bar">
+      <marquee behavior="scroll" direction="left" scrollamount="4">
+        * FISH QUIZ v1.0 * 5 QUESTIONS * WIN BRAGGING RIGHTS * TELL YOUR CLASSMATES *
+      </marquee>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <pre class="ascii-sidebar"> (\(\(
+ ( -.-)
+ o_(")(")
+  FISH!</pre>
+
+        <div class="nav-box">
+          <h2>Navigation</h2>
+          <ul>
+            <li><a href="index.html" data-nav="home">Home</a></li>
+            <li><a href="gallery.html" data-nav="gallery">Fish Gallery</a></li>
+            <li><a href="guestbook.html" data-nav="guestbook">Guestbook</a></li>
+            <li><a href="links.html" data-nav="links">Cool Links</a></li>
+            <li><a href="about.html" data-nav="about">About Me</a></li>
+            <li><a href="quiz.html" data-nav="quiz">Fish Quiz</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="panel">
+          <h2>Fish Knowledge Test</h2>
+          <p>Answer all 5 questions then hit submit. Good luck!!!</p>
+
+          <form id="fish-quiz" class="quiz-form">
+            <fieldset class="quiz-question">
+              <legend>1. What do fish use to breathe underwater?</legend>
+              <label><input type="radio" name="q1" value="lungs"> Lungs</label>
+              <label><input type="radio" name="q1" value="gills"> Gills</label>
+              <label><input type="radio" name="q1" value="nose"> Nose</label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend>2. Which fish lives in anemones?</legend>
+              <label><input type="radio" name="q2" value="tuna"> Tuna</label>
+              <label><input type="radio" name="q2" value="clownfish"> Clownfish</label>
+              <label><input type="radio" name="q2" value="salmon"> Salmon</label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend>3. Which fish is famous for having lots of teeth?</legend>
+              <label><input type="radio" name="q3" value="goldfish"> Goldfish</label>
+              <label><input type="radio" name="q3" value="shark"> Shark</label>
+              <label><input type="radio" name="q3" value="koi"> Koi</label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend>4. Which fish is a common pet in a bowl?</legend>
+              <label><input type="radio" name="q4" value="goldfish"> Goldfish</label>
+              <label><input type="radio" name="q4" value="whale"> Whale</label>
+              <label><input type="radio" name="q4" value="marlin"> Marlin</label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend>5. Which fish became an internet legend for looking blobby?</legend>
+              <label><input type="radio" name="q5" value="swordfish"> Swordfish</label>
+              <label><input type="radio" name="q5" value="blobfish"> Blobfish</label>
+              <label><input type="radio" name="q5" value="trout"> Trout</label>
+            </fieldset>
+
+            <div class="button-row">
+              <button class="retro-button" type="submit">Submit Quiz</button>
+              <a class="retro-button" href="index.html">Give Up</a>
+            </div>
+          </form>
+
+          <div id="quiz-result" class="quiz-result" hidden></div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <p>Fish Quiz &copy; 2000. Results not valid in all 50 states.</p>
+    </footer>
+  </div>
+
+  <div class="dialup-status">
+    <span class="online">[*] Online</span>
+    <span>Connected at 56.6 kbps</span>
+    <span data-modem-status>Grading quiz.exe...</span>
+    <span data-message-count>Messages: 0</span>
+  </div>
+
+  <script src="retro.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
