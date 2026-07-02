@@ -5,6 +5,17 @@ const STORAGE = {
 
 const VISITOR_COUNTER_URL = "https://tally.yuki.sh/hits/fish-world-2000/site.json";
 
+const LIMITS = {
+  nameMax: 40,
+  emailMax: 80,
+  messageMax: 500,
+  guestbookMaxEntries: 100,
+  guestbookCooldownMs: 30000,
+  pollVoteKey: "fw2000_poll_voted",
+};
+
+const ALLOWED_POLL_OPTIONS = ["Goldfish", "Shark", "Clownfish", "Blobfish", "Other"];
+
 const DEFAULT_GUESTBOOK = [
   {
     name: "CoolFishDude42",
@@ -79,8 +90,8 @@ async function initVisitorCounter() {
     }
 
     const data = await response.json();
-    const visits = Number(data.visit) || 0;
-    const visitors = Number(data.visitor) || visits;
+    const visits = Number.isFinite(Number(data.visit)) ? Number(data.visit) : 0;
+    const visitors = Number.isFinite(Number(data.visitor)) ? Number(data.visitor) : visits;
 
     digitsEls.forEach((el) => {
       el.textContent = String(visits).padStart(9, "0");
@@ -108,14 +119,59 @@ function getGuestbookEntries() {
 
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [...DEFAULT_GUESTBOOK];
+    if (!Array.isArray(parsed)) {
+      return [...DEFAULT_GUESTBOOK];
+    }
+
+    return parsed
+      .map(sanitizeGuestbookEntry)
+      .filter((entry) => entry.name && entry.message)
+      .slice(-LIMITS.guestbookMaxEntries);
   } catch {
     return [...DEFAULT_GUESTBOOK];
   }
 }
 
 function saveGuestbookEntries(entries) {
-  localStorage.setItem(STORAGE.guestbook, JSON.stringify(entries));
+  const safeEntries = entries
+    .map(sanitizeGuestbookEntry)
+    .filter((entry) => entry.name && entry.message)
+    .slice(-LIMITS.guestbookMaxEntries);
+
+  localStorage.setItem(STORAGE.guestbook, JSON.stringify(safeEntries));
+}
+
+function sanitizeText(value, maxLength) {
+  return String(value)
+    .replace(/[\u0000-\u001F\u007F]/g, "")
+    .trim()
+    .slice(0, maxLength);
+}
+
+function sanitizeGuestbookEntry(entry) {
+  return {
+    name: sanitizeText(entry?.name, LIMITS.nameMax),
+    email: sanitizeText(entry?.email, LIMITS.emailMax),
+    message: sanitizeText(entry?.message, LIMITS.messageMax),
+    date:
+      typeof entry?.date === "string" && !Number.isNaN(Date.parse(entry.date))
+        ? entry.date
+        : new Date().toISOString(),
+  };
+}
+
+function isValidEmail(value) {
+  if (!value) return true;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function canSubmitGuestbookEntry() {
+  const lastSubmit = Number(sessionStorage.getItem("fw2000_guestbook_last_submit") || "0");
+  return Date.now() - lastSubmit >= LIMITS.guestbookCooldownMs;
+}
+
+function markGuestbookSubmitted() {
+  sessionStorage.setItem("fw2000_guestbook_last_submit", String(Date.now()));
 }
 
 function formatGuestDate(iso) {
@@ -165,23 +221,46 @@ function initGuestbookForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const name = form.querySelector("#name")?.value.trim();
-    const email = form.querySelector("#email")?.value.trim();
-    const message = form.querySelector("#message")?.value.trim();
+    if (!canSubmitGuestbookEntry()) {
+      showRetroAlert("Slow down!!! Wait 30 seconds between guestbook posts.");
+      return;
+    }
+
+    const honeypot = sanitizeText(form.querySelector("#website")?.value, 80);
+    if (honeypot) {
+      showRetroAlert("Thanks!!! Your fish message has been saved to the ocean server.");
+      form.reset();
+      return;
+    }
+
+    const name = sanitizeText(form.querySelector("#name")?.value, LIMITS.nameMax);
+    const email = sanitizeText(form.querySelector("#email")?.value, LIMITS.emailMax);
+    const message = sanitizeText(form.querySelector("#message")?.value, LIMITS.messageMax);
 
     if (!name || !message) {
       showRetroAlert("Please enter your name and a fish message!!!");
       return;
     }
 
+    if (!isValidEmail(email)) {
+      showRetroAlert("That email address looks fishy. Check it and try again.");
+      return;
+    }
+
     const entries = getGuestbookEntries();
+    if (entries.length >= LIMITS.guestbookMaxEntries) {
+      showRetroAlert("Guestbook is full!!! The ocean server cannot hold more fish.");
+      return;
+    }
+
     entries.push({
       name,
-      email: email || "",
+      email,
       message,
       date: new Date().toISOString(),
     });
     saveGuestbookEntries(entries);
+    markGuestbookSubmitted();
     form.reset();
     renderGuestbook();
     showRetroAlert("Thanks!!! Your fish message has been saved to the ocean server.");
@@ -193,18 +272,28 @@ function initPoll() {
   const results = document.getElementById("poll-results");
   if (!form || !results) return;
 
-  const options = ["Goldfish", "Shark", "Clownfish", "Blobfish", "Other"];
+  const options = ALLOWED_POLL_OPTIONS;
 
   function getVotes() {
     try {
-      return JSON.parse(localStorage.getItem(STORAGE.poll) || "{}");
+      const parsed = JSON.parse(localStorage.getItem(STORAGE.poll) || "{}");
+      if (!parsed || typeof parsed !== "object") return {};
+
+      return Object.fromEntries(
+        Object.entries(parsed).filter(([key, value]) => {
+          return ALLOWED_POLL_OPTIONS.includes(key) && Number.isFinite(Number(value));
+        })
+      );
     } catch {
       return {};
     }
   }
 
   function saveVotes(votes) {
-    localStorage.setItem(STORAGE.poll, JSON.stringify(votes));
+    const safeVotes = Object.fromEntries(
+      ALLOWED_POLL_OPTIONS.map((option) => [option, Math.max(0, Number(votes[option]) || 0)])
+    );
+    localStorage.setItem(STORAGE.poll, JSON.stringify(safeVotes));
   }
 
   function renderResults() {
@@ -232,8 +321,14 @@ function initPoll() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    if (localStorage.getItem(LIMITS.pollVoteKey)) {
+      showRetroAlert("You already voted in this poll!!! One vote per browser.");
+      return;
+    }
+
     const selected = form.querySelector('input[name="favorite-fish"]:checked');
-    if (!selected) {
+    if (!selected || !ALLOWED_POLL_OPTIONS.includes(selected.value)) {
       showRetroAlert("Pick a fish first!!!");
       return;
     }
@@ -241,6 +336,7 @@ function initPoll() {
     const votes = getVotes();
     votes[selected.value] = (votes[selected.value] || 0) + 1;
     saveVotes(votes);
+    localStorage.setItem(LIMITS.pollVoteKey, "1");
     renderResults();
     showRetroAlert(`You voted for ${selected.value}!!! Thanks!!!`);
   });
@@ -328,12 +424,31 @@ function initQuiz() {
     ];
 
     result.hidden = false;
-    result.innerHTML = `
-      <pre class="ascii-art small gold"> SCORE: ${score} / 5
- ${messages[score]}</pre>
-      <p><span class="blink">NEW HIGH SCORE???</span> Tell your friends on AIM!!!</p>
-    `;
+    result.textContent = "";
+    const scoreBlock = document.createElement("pre");
+    scoreBlock.className = "ascii-art small gold";
+    scoreBlock.textContent = ` SCORE: ${score} / 5\n ${messages[score]}`;
+    const note = document.createElement("p");
+    note.innerHTML = '<span class="blink">NEW HIGH SCORE???</span> Tell your friends on AIM!!!';
+    result.append(scoreBlock, note);
   });
+}
+
+function initExternalLinkSecurity() {
+  document.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach((link) => {
+    if (link.hostname === window.location.hostname) return;
+    link.setAttribute("rel", "noopener noreferrer");
+    link.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  });
+}
+
+function initSecurityMeta() {
+  if (document.querySelector('meta[name="referrer"]')) return;
+
+  const meta = document.createElement("meta");
+  meta.name = "referrer";
+  meta.content = "strict-origin-when-cross-origin";
+  document.head.appendChild(meta);
 }
 
 function showRetroAlert(message) {
@@ -345,7 +460,8 @@ function escapeHtml(value) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function initSite() {
@@ -361,6 +477,8 @@ function initSite() {
   initModemTicker();
   initQuiz();
   updateMessageCount();
+  initExternalLinkSecurity();
+  initSecurityMeta();
 }
 
 document.addEventListener("DOMContentLoaded", initSite);

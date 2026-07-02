@@ -581,6 +581,16 @@ button.retro-button:active {
 
 .guestbook-form textarea {
   height: 90px;
+  resize: vertical;
+  max-height: 200px;
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .guest-entry {

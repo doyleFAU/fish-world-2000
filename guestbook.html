@@ -68,15 +68,20 @@
       <main class="content">
         <section class="panel">
           <h2>Sign The Guestbook</h2>
-          <form id="guestbook-form" class="guestbook-form">
+          <form id="guestbook-form" class="guestbook-form" autocomplete="on">
+            <label class="hp-field" aria-hidden="true">
+              Leave blank:
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </label>
+
             <label for="name">Your Name:</label>
-            <input id="name" name="name" type="text" placeholder="FishFan2000">
+            <input id="name" name="name" type="text" maxlength="40" required placeholder="FishFan2000" autocomplete="name">
 
             <label for="email">Your Email:</label>
-            <input id="email" name="email" type="text" placeholder="you@aol.com">
+            <input id="email" name="email" type="email" maxlength="80" placeholder="you@aol.com" autocomplete="email">
 
             <label for="message">Your Message:</label>
-            <textarea id="message" name="message" placeholder="I love fish because..."></textarea>
+            <textarea id="message" name="message" maxlength="500" required placeholder="I love fish because..."></textarea>
 
             <div class="button-row">
               <button class="retro-button" type="submit">Submit Message</button>
